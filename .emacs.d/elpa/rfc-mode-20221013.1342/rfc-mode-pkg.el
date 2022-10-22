@@ -1,0 +1,2 @@
+;;; Generated package description from rfc-mode-20221013.1342/rfc-mode.el  -*- no-byte-compile: t -*-
+(define-package "rfc-mode" "20221013.1342" "RFC document browser and viewer" '((emacs "25.1")) :commit "93208d44516e1f4c6e181ee5d374f2dbd7199d0c" :authors '(("Nicolas Martyanoff" . "nicolas@n16f.net")) :maintainer '("Nicolas Martyanoff" . "nicolas@n16f.net") :url "https://github.com/galdor/rfc-mode")

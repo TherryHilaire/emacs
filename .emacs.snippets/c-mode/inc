@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# na:me: #include <...>
+# key: inc
+# --
+#include <$0>
