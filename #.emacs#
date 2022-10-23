@@ -20,10 +20,9 @@
 (column-number-mode 1)
 (show-paren-mode 1)
 
-(rc/require-theme 'gruvbox)
 (rc/require-theme 'gruber-darker)
 ;; (rc/require-theme 'zenburn)
-;; (load-theme 'gruvbox)
+;; (load-theme 'adwaita t)
 
 (eval-after-load 'zenburn
   (set-face-attribute 'line-number nil :inherit 'default))
@@ -146,7 +145,7 @@
 (setq helm-ff-transformer-show-only-basename nil)
 
 (global-set-key (kbd "C-c h t") 'helm-cmd-t)
-(global-set-key (kbd "C-c h g g") 'helm-git-grep)
+(themglobal-set-key (kbd "C-c h g g") 'helm-git-grep)
 (global-set-key (kbd "C-c h g l") 'helm-ls-git-ls)
 (global-set-key (kbd "C-c h f") 'helm-find)
 (global-set-key (kbd "C-c h a") 'helm-org-agenda-files-headings)
@@ -314,13 +313,8 @@ compilation-error-regexp-alist-alist
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#3c3836" "#fb4934" "#b8bb26" "#fabd2f" "#83a598" "#d3869b" "#8ec07c" "#ebdbb2"])
- '(custom-enabled-themes '(gruvbox-dark-hard))
- '(custom-safe-themes
-   '("fa49766f2acb82e0097e7512ae4a1d6f4af4d6f4655a48170d0a00bcb7183970" "b1a691bb67bd8bd85b76998caf2386c9a7b2ac98a116534071364ed6489b695d" "d80952c58cf1b06d936b1392c38230b74ae1a2a6729594770762dc0779ac66b7" default))
+ '(custom-enabled-themes '(gruber-darker))
  '(display-line-numbers-type 'relative)
- '(frame-brackground-mode 'dark)
  '(ispell-dictionary nil)
  '(org-agenda-dim-blocked-tasks nil)
  '(org-agenda-exporter-settings '((org-agenda-tag-filter-preset (list "+personal"))))
