@@ -39,48 +39,6 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
-;;; c-mode
-(setq-default c-basic-offset 4
-              c-default-style '((java-mode . "java")
-                                (awk-mode . "awk")
-                                (other . "bsd")))
-
-(add-hook 'c-mode-hook (lambda ()
-                         (interactive)
-                         (c-toggle-comment-style -1)))
-
-;;; Paredit
-(rc/require 'paredit)
-
-(defun rc/turn-on-paredit ()
-  (interactive)
-  (paredit-mode 1))
-
-(add-hook 'emacs-lisp-mode-hook  'rc/turn-on-paredit)
-(add-hook 'clojure-mode-hook     'rc/turn-on-paredit)
-(add-hook 'lisp-mode-hook        'rc/turn-on-paredit)
-(add-hook 'common-lisp-mode-hook 'rc/turn-on-paredit)
-(add-hook 'scheme-mode-hook      'rc/turn-on-paredit)
-(add-hook 'racket-mode-hook      'rc/turn-on-paredit)
-
-;;; Emacs lisp
-(add-hook 'emacs-lisp-mode-hook
-          '(lambda ()
-             (local-set-key (kbd "C-c C-j")
-                            (quote eval-print-last-sexp))))
-(add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
-
-;;; Haskell mode
-(rc/require 'haskell-mode)
-
-(setq haskell-process-type 'cabal-new-repl)
-(setq haskell-process-log t)
-
-(add-hook 'haskell-mode-hook 'haskell-indent-mode)
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-(add-hook 'haskell-mode-hook 'haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'hindent-mode)
-
 ;;; Whitespace mode
 (defun rc/set-up-whitespace-handling ()
   (interactive)
@@ -89,7 +47,6 @@
 
 (add-hook 'tuareg-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'c++-mode-hook 'rc/set-up-whitespace-handling)
-(add-hook 'c-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'simpc-mode-hook 'rc/set-up-whitespace-handling)
 (add-hook 'emacs-lisp-mode 'rc/set-up-whitespace-handling)
 (add-hook 'java-mode-hook 'rc/set-up-whitespace-handling)
@@ -122,16 +79,6 @@
 (global-set-key (kbd "C-c m s") 'magit-status)
 (global-set-key (kbd "C-c m l") 'magit-log)
 
-;;; multiple cursors
-(rc/require 'multiple-cursors)
-
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->")         'mc/mark-next-like-this)
-(global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
-(global-set-key (kbd "C-\"")        'mc/skip-to-next-like-this)
-(global-set-key (kbd "C-:")         'mc/skip-to-previous-like-this)
-
 ;;; dired
 (require 'dired-x)
 (setq dired-omit-files
@@ -161,54 +108,6 @@
 
 (yas-global-mode 1)
 
-;;; word-wrap
-(defun rc/enable-word-wrap ()
-  (interactive)
-  (toggle-word-wrap 1))
-
-(add-hook 'markdown-mode-hook 'rc/enable-word-wrap)
-
-;;; nxml
-(add-to-list 'auto-mode-alist '("\\.html\\'" . nxml-mode))
-(add-to-list 'auto-mode-alist '("\\.xsd\\'" . nxml-mode))
-(add-to-list 'auto-mode-alist '("\\.ant\\'" . nxml-mode))
-
-;;; tramp
-;;; http://stackoverflow.com/questions/13794433/how-to-disable-autosave-for-tramp-buffers-in-emacs
-(setq tramp-auto-save-directory "/tmp")
-
-;;; powershell
-(rc/require 'powershell)
-(add-to-list 'auto-mode-alist '("\\.ps1\\'" . powershell-mode))
-(add-to-list 'auto-mode-alist '("\\.psm1\\'" . powershell-mode))
-
-;;; eldoc mode
-(defun rc/turn-on-eldoc-mode ()
-  (interactive)
-  (eldoc-mode 1))
-
-(add-hook 'emacs-lisp-mode-hook 'rc/turn-on-eldoc-mode)
-
-;;; Company
-(rc/require 'company)
-(require 'company)
-
-(global-company-mode)
-
-(add-hook 'tuareg-mode-hook
-          (lambda ()
-            (interactive)
-            (company-mode 0)))
-
-;;; Tide
-(rc/require 'tide)
-
-(defun rc/turn-on-tide ()
-  (interactive)
-  (tide-setup))
-
-(add-hook 'typescript-mode-hook 'rc/turn-on-tide)
-
 ;;; Proof general
 (rc/require 'proof-general)
 (add-hook 'coq-mode-hook
@@ -220,21 +119,10 @@
 (rc/require 'nasm-mode)
 (add-to-list 'auto-mode-alist '("\\.asm\\'" . nasm-mode))
 
-;;; LaTeX mode
-(add-hook 'tex-mode-hook
-          (lambda ()
-            (interactive)
-            (add-to-list 'tex-verbatim-environments "code")))
-
-(setq font-latex-fontify-sectioning 'color)
-
 ;;; Move Text
 (rc/require 'move-text)
 (global-set-key (kbd "M-p") 'move-text-up)
 (global-set-key (kbd "M-n") 'move-text-down)
-
-;;; Ebisp
-(add-to-list 'auto-mode-alist '("\\.ebi\\'" . lisp-mode))
 
 ;;; Packages that don't require configuration
 (rc/require
@@ -270,17 +158,6 @@
  'rfc-mode
  'sml-mode
  )
-
-(load "~/.emacs.shadow/shadow-rc.el" t)
-
-(add-to-list 'load-path "~/.emacs.local/")
-(require 'basm-mode)
-(require 'porth-mode)
-(require 'noq-mode)
-(require 'jai-mode)
-
-(require 'simpc-mode)
-(add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
 
 (defun astyle-buffer (&optional justify)
   (interactive)
@@ -329,7 +206,7 @@ compilation-error-regexp-alist-alist
    '(org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m))
  '(org-refile-use-outline-path 'file)
  '(package-selected-packages
-   '(use-package treemacs-tab-bar treemacs-persp treemacs-magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs rainbow-mode proof-general elpy hindent ag qml-mode racket-mode php-mode go-mode kotlin-mode nginx-mode toml-mode love-minor-mode dockerfile-mode nix-mode purescript-mode markdown-mode jinja2-mode nim-mode csharp-mode rust-mode cmake-mode clojure-mode graphviz-dot-mode lua-mode tuareg glsl-mode yaml-mode d-mode scala-mode move-text nasm-mode editorconfig tide company powershell js2-mode yasnippet helm-ls-git helm-git-grep helm-cmd-t helm multiple-cursors magit haskell-mode paredit ido-completing-read+ smex gruber-darker-theme org-cliplink dash-functional dash))
+   '(use-package rainbow-mode proof-general elpy hindent ag qml-mode racket-mode php-mode go-mode kotlin-mode nginx-mode toml-mode love-minor-mode dockerfile-mode nix-mode purescript-mode markdown-mode jinja2-mode nim-mode csharp-mode rust-mode cmake-mode clojure-mode graphviz-dot-mode lua-mode tuareg glsl-mode yaml-mode d-mode scala-mode move-text nasm-mode editorconfig tide company powershell js2-mode yasnippet helm-ls-git helm-git-grep helm-cmd-t helm multiple-cursors magit haskell-mode paredit ido-completing-read+ smex gruber-darker-theme org-cliplink dash-functional dash))
  '(safe-local-variable-values
    '((eval progn
            (auto-revert-mode 1)
@@ -343,7 +220,3 @@ compilation-error-regexp-alist-alist
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
