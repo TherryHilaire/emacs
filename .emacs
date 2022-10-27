@@ -10,7 +10,7 @@
 (defun rc/get-default-font ()
   (cond
    ((eq system-type 'windows-nt) "Consolas-13")
-   ((eq system-type 'gnu/linux) "Iosevka-15")))
+   ((eq system-type 'gnu/linux) "Iosevka Nerd Font-15")))
 
 (add-to-list 'default-frame-alist `(font . ,(rc/get-default-font)))
 
